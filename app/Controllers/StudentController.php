@@ -11,16 +11,20 @@ class StudentController{
         $service = new StudentService();
         $printData = $service->printStudent($id);
 
-        switch ($printData['format']) {
-            case 'JSON':
-                echo header("Content-type: application/json");
-                break;
-            case 'XML':
-                echo header("Content-type: text/xml");
-                break;
-        }
+        if(!$printData){
+            echo 'The student is not found';
+        } else {
+            switch ($printData['format']) {
+                case 'JSON':
+                    echo header("Content-type: application/json");
+                    break;
+                case 'XML':
+                    echo header("Content-type: text/xml");
+                    break;
+            }
 
-        echo $printData['string'];
+            echo $printData['string'];
+        }
     }
 
 }

@@ -13,7 +13,11 @@ class StudentService
 
     public function printStudent($id){
 
-        $student = new Student(StudentModel::with('grades')->find($id));
+        $studentModel = StudentModel::with('grades')->find($id);
+        if(!$studentModel){
+            return null;
+        }
+        $student = new Student($studentModel);
 
         $schoolFactory = new SchoolFactory();
         $schoolObject = $schoolFactory->getSchool($student);
